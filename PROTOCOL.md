@@ -1,5 +1,9 @@
 # SCREEN-KERNEL/1.1
 
+Family spec (host): https://github.com/ItsNotAILABS/pocket/blob/main/docs/POCKET_SCREEN_FAMILY_PROTOCOL.md
+
+Live: `GET /v1/protocols/screen-kernel` · `GET /v1/protocols/stream` · `GET /v1/protocols/screen-body`
+
 ```
 see → touch → type → click
 nx, ny ∈ [0, 1] of the visible frame
