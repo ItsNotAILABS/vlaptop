@@ -1,7 +1,7 @@
 [project]
 name = "vlaptop"
-version = "1.0.0"
-description = "Screen kernel client: see, touch, type, click named buttons."
+version = "1.1.0"
+description = "Screen kernel client: see, touch, type, click, embody the live PC."
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}

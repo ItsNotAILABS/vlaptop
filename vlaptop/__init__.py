@@ -7,12 +7,13 @@ import urllib.error
 import urllib.request
 from typing import Any, Dict, Optional
 
-__version__ = "1.0.0"
-PROTOCOL = "SCREEN-KERNEL/1.0"
+__version__ = "1.1.0"
+PROTOCOL = "SCREEN-KERNEL/1.1"
+STREAM = "pocket.stream.v1"
 
 
 class Screen:
-    """Talk to a Pocket host that implements SCREEN-KERNEL/1.0."""
+    """Talk to a Pocket host that implements SCREEN-KERNEL/1.1."""
 
     def __init__(self, base: str = "http://127.0.0.1:8787", *, token: str = "") -> None:
         self.base = (base or "").rstrip("/")
@@ -54,3 +55,10 @@ class Screen:
 
     def open_vlaptop(self, label: str = "main") -> Dict[str, Any]:
         return self._req("POST", "/v1/vcomp/open", {"label": label})
+
+    def embody(self, agent: str = "coder", *, which: str = "desktop") -> Dict[str, Any]:
+        return self._req("POST", "/v1/screen/embody", {"agent": agent, "which": which})
+
+    def body(self, verb: str = "see", **extra: Any) -> Dict[str, Any]:
+        extra.update({"verb": verb})
+        return self._req("POST", "/v1/screen/body", extra)

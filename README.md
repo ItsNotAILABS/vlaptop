@@ -6,7 +6,7 @@ A screen kernel for people and for agents.
 vLaptop is the public protocol and SDK. The host that actually owns a laptop (POCKET) implements it. Agents get a personal computer seat. Humans get a phone, glasses, or TV that is the same verbs.
 
 [![GitHub](https://img.shields.io/badge/org-ItsNotAILABS-00ff86)](https://github.com/ItsNotAILABS)
-Protocol: `SCREEN-KERNEL/1.0`
+Protocol: `SCREEN-KERNEL/1.1` · stream `pocket.stream.v1`
 
 ## Verbs
 
@@ -17,6 +17,7 @@ Protocol: `SCREEN-KERNEL/1.0`
 | **type** | Click the field you selected, then type | Small box on the phone | `POST /v1/screen/type` |
 | **click** | Press a named on-screen button | HUD chrome | `POST /v1/screen/click` |
 | **cursor** | Where the mouse actually is | Green circle | `GET /v1/screen/kernel` |
+| **embody** | Agent *is* the pointer on that screen | Phone is a human body | `POST /v1/screen/embody` |
 
 Coordinates are always **0..1 of the pixels you see**. Not of the last window tab.
 
@@ -40,6 +41,8 @@ pc.see()                          # JPEG of the laptop
 pc.touch("tap", nx=0.42, ny=0.31) # exact mouse
 pc.type("search this", nx=0.5, ny=0.12, submit=True)
 pc.click("Deploy")
+pc.embody("coder")                # this agent wears the live PC
+pc.body("see")
 ```
 
 Auth: same-origin cookie, LAN, or a Pocket session. Hostname is not authority.
