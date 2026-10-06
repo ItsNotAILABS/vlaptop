@@ -1,12 +1,15 @@
 [project]
 name = "vlaptop"
-version = "1.1.0"
-description = "Screen kernel client: see, touch, type, click, embody the live PC."
+version = "1.2.0"
+description = "Standalone screen system: see, touch, type, and click the live desktop. Pocket can host the same contract."
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
 authors = [{name = "ItsNotAI Labs"}]
 keywords = ["screen", "agent", "vlaptop", "touch", "phoneai", "pocket"]
+
+[project.scripts]
+vlaptop = "vlaptop.host:main"
 
 [project.urls]
 Homepage = "https://github.com/ItsNotAILABS/vlaptop"
