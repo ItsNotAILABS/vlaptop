@@ -31,7 +31,7 @@ class _Fake(Laptop):
 
 def test_protocol_is_pro_generation():
     assert PROTOCOL == "SCREEN-KERNEL/1.2"
-    assert __version__ == "1.2.0"
+    assert __version__ == "1.3.0"
 
 
 def test_memory_and_sense_routes():

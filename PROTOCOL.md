@@ -50,3 +50,16 @@ WS   /v1/phoneai/portal/ws   pocket.stream.v1  (JSON envelope then JPEG)
 5. Agents do not get extra chrome. They call the same verbs, or **inhabit** the screen (`embody`) so see/touch/type *are* their body.
 6. Tunnel hostname is not authority. LAN, signed-in, device-pair+passkey, or a bound session cookie.
 7. Stream frames are `pocket.stream.v1`: a JSON envelope `{seq, geom, matrix}` then a binary JPEG. The 3×3 matrix maps `nx,ny` of the contained image onto desktop pixels. `see` returns that same matrix, plus `jpeg_b64` (also mirrored as `base64`) and `frame` `{w, h}`. A region zooms that rectangle to `max_w`. `nx` or `ny` outside 0..1 is refused.
+
+## Hardware `vlaptop.hardware.v1`
+
+The standalone host boots one machine on every operating system.
+
+| Device | Kind | Behavior |
+|--------|------|----------|
+| display | framebuffer | 320×184 RGB, JPEG from `see` with `which=machine` |
+| pointer | pointer | `touch` moves it and focuses the control under it |
+| keyboard | keyboard | `type` writes the focused field |
+| console | shell | `Run`, `POST /v1/vcomp/shell`, and `type` with `submit` run on this computer |
+
+`which=desktop` uses the physical Windows monitor when the host is Windows. Every other device uses the framebuffer, so the picture and the controls stay the same. `GET /v1/screen/hardware` and `GET /v1/screen/kernel` both carry the hardware object. `click` on the framebuffer returns `match`, `role`, and `rect`.

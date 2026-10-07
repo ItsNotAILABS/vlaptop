@@ -8,7 +8,7 @@ import urllib.error
 import urllib.request
 from typing import Any, Dict, Optional, Sequence, Tuple
 
-__version__ = "1.2.0"
+__version__ = "1.3.0"
 PROTOCOL = "SCREEN-KERNEL/1.2"
 STREAM = "pocket.stream.v1"
 

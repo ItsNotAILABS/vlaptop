@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import base64
+import os
 import subprocess
 from typing import Any, Dict, Optional
 
@@ -104,11 +105,19 @@ def _ps(script: str, *, env: Optional[Dict[str, str]] = None) -> str:
     child_env = os.environ.copy()
     if env:
         child_env.update(env)
+    flags = int(getattr(subprocess, "CREATE_NO_WINDOW", 0)) if os.name == "nt" else 0
+    info = None
+    if os.name == "nt":
+        info = subprocess.STARTUPINFO()
+        info.dwFlags |= int(getattr(subprocess, "STARTF_USESHOWWINDOW", 1))
+        info.wShowWindow = 0
     run = subprocess.run(
         ["powershell", "-NoProfile", "-NonInteractive", "-Command", script],
         capture_output=True,
         env=child_env,
         timeout=20,
+        creationflags=flags,
+        startupinfo=info,
     )
     text = (run.stdout or b"").decode("utf-8", errors="replace").strip()
     if run.returncode != 0:

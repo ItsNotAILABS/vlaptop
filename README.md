@@ -3,7 +3,7 @@
 **See. Touch. Type. Click the button.**  
 A screen kernel for people and for agents.
 
-vLaptop is a standalone screen system. `python -m vlaptop` serves SCREEN-KERNEL on `127.0.0.1:8788` and drives this desktop. Pocket can host the same contract. The client talks to either one.
+vLaptop is a virtual machine. `python -m vlaptop` serves SCREEN-KERNEL on `127.0.0.1:8788` and boots the same hardware on Windows, Linux, and macOS: a 320×184 framebuffer, a pointer, a keyboard, and a shell. On Windows, `which=desktop` still drives the physical monitor. Pocket can host the same screen contract. The client talks to either one.
 
 [![GitHub](https://img.shields.io/badge/org-ItsNotAILABS-00ff86)](https://github.com/ItsNotAILABS)
 Protocol: `SCREEN-KERNEL/1.2` · stream `pocket.stream.v1` · seat `pro`
@@ -20,6 +20,20 @@ Protocol: `SCREEN-KERNEL/1.2` · stream `pocket.stream.v1` · seat `pro`
 | **embody** | Agent *is* the pointer on that screen | Phone is a human body | `POST /v1/screen/embody` |
 
 Coordinates are always **0..1 of the pixels you see**. Not of the last window tab. `see(nx, ny, nw, nh)` zooms that region. The reply includes the JPEG bytes and the 3×3 matrix from the spec. Values outside 0..1 are refused.
+
+## Hardware
+
+`GET /v1/screen/hardware` returns `vlaptop.hardware.v1`: platform, machine, and the four devices (display, pointer, keyboard, console). The pixels are the product. A phone, a TV, and a Linux box all `see` that framebuffer. Named controls on the board are `Field`, `Run`, and `Console`. `Run` executes the field on this computer. `POST /v1/vcomp/shell` does the same.
+
+```python
+from vlaptop import Laptop
+
+pc = Laptop("http://127.0.0.1:8788")
+pc.boot("main")
+frame = pc.see("machine")
+pc.type("echo vlaptop", submit=True)
+pc.click("Run")
+```
 
 ## Why this is its own repo
 
